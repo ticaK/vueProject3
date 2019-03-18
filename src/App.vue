@@ -1,17 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <h1>Posts</h1>
+   <div>
+     <div v-for="post in posts" :key="post.id">
+       <h3>{{post.title}}</h3>
+       {{post.body}}
+     </div>
+
+   </div>
   </div>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import {postsService} from './services/PostsService'
 export default {
+  data(){
+    return {
+      posts:[]
+    }
+  },
   name: 'app',
   components: {
-    HelloWorld
+  },
+
+  created(){
+    postsService.getPosts()
+    .then(response=> response.data)
+    .then(data=>{
+      this.posts=data;
+    })
+    .catch(e=>{
+      console.log(e);
+    })
   }
 }
 </script>
