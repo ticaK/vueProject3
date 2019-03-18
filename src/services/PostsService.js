@@ -1,8 +1,13 @@
-import axios from 'axios';
+import {httpService} from './HttpService';
 
 class PostsService {
+
+    create(post){
+        return httpService.post('/posts',post);
+        // post prodljedjujemo kao body
+    }
     getPosts(){
-        return axios.get("https://jsonplaceholder.typicode.com/posts")
+        return httpService.get('/posts');
         
     }
 }

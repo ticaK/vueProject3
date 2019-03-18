@@ -24,16 +24,43 @@ export default {
   components: {
   },
 
-  created(){
-    postsService.getPosts()
-    .then(response=> response.data)
-    .then(data=>{
-      this.posts=data;
-    })
-    .catch(e=>{
-      console.log(e);
-    })
+  async created(){
+    try{
+    const{data}=await postsService.getPosts();
+    //kada se resolvuje uzmemo mu data i nakacimo na nas post
+    this.posts=data;
+    
+    const{data: newPost }=await postsService.create({
+      name:"Pero",
+      lastName:"Peric"
+    });
+    console.log(newPost);
+
+    } catch(error){
+      console.log(error);
+    }
   }
+  //   postsService.getPosts()
+  //   .then(response=> response.data)
+  //   .then(data=>{
+  //     this.posts=data;
+
+  //     postsService.create({
+  //       name:"pero", lastName:"Peric"
+  //     })
+  //   .then(response=> response.data)
+  //    .then(data=>{
+  //    console.log(data)
+  //    })
+  //      .catch(e=>{
+  //     console.log(e);
+  //   });
+      
+  //   })
+  //   .catch(e=>{
+  //     console.log(e);
+  //   })
+  // }
 }
 </script>
 
